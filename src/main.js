@@ -24,14 +24,14 @@ var savedCovers = [];
 var currentCover;
 
 
-function getRandomIndex(array) {
+let getRandomIndex = array => {
   var randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 };
 
 
 
-function generateRandomCoverButton() {
+let generateRandomCoverButton = () => {
   currentCover = new Cover(getRandomIndex(covers), getRandomIndex(titles), getRandomIndex(descriptors), getRandomIndex(descriptors));
   coverImage.src = currentCover.cover;
   coverTitle.innerText = currentCover.title;
@@ -40,7 +40,7 @@ function generateRandomCoverButton() {
   mainCover.classList.remove('hidden');
 };
 
-function showForm() {
+let showForm = () => {
   mainCover.classList.add('hidden');
   form.classList.remove('hidden');
   randomCoverButton.classList.add('hidden');
@@ -49,14 +49,14 @@ function showForm() {
   showSavedCoversView.classList.add('hidden');
 };
 
-function showSavedCovers() {
+let showSavedCovers = () => {
   form.classList.add('hidden');
   mainCover.classList.add('hidden');
   showSavedCoversView.classList.remove('hidden');
   displaySavedCoverPage();
 };
 
-function displaySavedCoverPage() {
+let displaySavedCoverPage = () => {
   displaySavedCoversGrid.innerHTML = ``;
   for (var i =0; i < savedCovers.length; i++) {
     displaySavedCoversGrid.innerHTML += `
@@ -70,7 +70,7 @@ function displaySavedCoverPage() {
     };
 };
 
-function showHomePage() {
+let showHomePage = () => {
   homeButton.classList.add('hidden');
   randomCoverButton.classList.remove('hidden');
   saveCoverButton.classList.remove('hidden');
@@ -78,7 +78,7 @@ function showHomePage() {
   form.classList.add('hidden');
 };
 
-function createCustomBook(event) {
+let createCustomBook = event => {
   event.preventDefault();
   currentCover = new Cover(customImageInput.value, customTitleInput.value, customDescriptor1.value, customDescriptor2.value);
   covers.push(customImageInput.value);
@@ -95,7 +95,7 @@ function createCustomBook(event) {
   mainCover.classList.remove('hidden');
 };
 
-function saveCover() {
+let saveCover = () => {
   if (savedCovers.includes(currentCover)) {
     return savedCovers;
   } else {
@@ -103,12 +103,12 @@ function saveCover() {
   };
 };
 
-function deleteCover() {
-  for (var i = 0; i < savedCovers.length; i++) {
-    if (savedCovers[i].id === Number(event.target.parentNode.id)) {
-      savedCovers.splice(i, 1);
+let deleteCover = () => {
+  savedCovers.forEach(item => {
+    if (item.id === Number(event.target.parentNode.id)) {
+      savedCovers.splice(savedCovers.indexOf(item), 1);
     };
-  };
+  });
   displaySavedCoverPage();
 };
 
